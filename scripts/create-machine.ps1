@@ -26,9 +26,11 @@ docker run --rm `
   -e MACHINE_NAME=$machineName `
   -e MACHINE_IP=$machineIp `
   -v "$env:USERPROFILE\.docker:C:\Users\ContainerAdministrator\.docker" `
-  -v "$homeDir\.docker:C:\machine\.docker" `
+  -v "$env:USERPROFILE\.docker:C:\machine\.docker" `
   -v "C:\ProgramData\docker:C:\ProgramData\docker" `
-  dockertls
+  stefanscherer/dockertls-windows:insider
+
+Copy-Item -Recurse "$env:USERPROFILE\.docker\machine\machines\$machineName" "$homeDir\.docker\machine\machines\$machineName"
 
 Write-host Restarting Docker
 stop-service docker
