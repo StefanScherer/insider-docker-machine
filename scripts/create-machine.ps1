@@ -26,6 +26,7 @@ docker run --rm `
   -e MACHINE_HOME=$machineHome `
   -e MACHINE_NAME=$machineName `
   -e MACHINE_IP=$machineIp `
+  --user ContainerAdministrator `
   -v "$env:USERPROFILE\.docker:C:\Users\ContainerAdministrator\.docker" `
   -v "$env:USERPROFILE\.docker:C:\machine\.docker" `
   -v "C:\ProgramData\docker:C:\ProgramData\docker" `
