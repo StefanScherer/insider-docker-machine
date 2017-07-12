@@ -12,7 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.synced_folder ENV['HOME'], ENV['HOME']
 
-  config.vm.provision "shell", path: "scripts/load-images.ps1"
+#  config.vm.provision "shell", path: "scripts/load-images.ps1"
 #  config.vm.provision "shell", path: "scripts/build-dockertls.ps1"
   config.vm.provision "shell", path: "scripts/create-machine.ps1", args: "-machineHome #{ENV['HOME']} -machineName insider"
 
