@@ -18,16 +18,16 @@ function ensureDirs($dirs) {
 # https://docs.docker.com/engine/security/https/
 function createCA(){
   Write-Host "`n=== Generating CA private password"
-  $Global:caPrivateKeyPass = "pass:$(openssl rand -base64 32)"
+  $Global:caPrivateKeyPass = "pass:$(C:\libressl\openssl rand -base64 32)"
 
   Write-Host "`n=== Writing out private key password"
   $Global:caPrivateKeyPass | Out-File -FilePath $Global:caPrivateKeyPassFile
 
   Write-Host "`n=== Generating CA private key"
-  & openssl genrsa -aes256 -passout $Global:caPrivateKeyPass -out $Global:caPrivateKeyFile 4096
+  & C:\libressl\openssl genrsa -aes256 -passout $Global:caPrivateKeyPass -out $Global:caPrivateKeyFile 4096
 
   Write-Host "`n=== Generating CA public key"
-  & openssl req -subj "/C=US/ST=Washington/L=Redmond/O=./OU=." -new -x509 -days 365 -passin $Global:caPrivateKeyPass -key $Global:caPrivateKeyFile -sha256 -out $Global:caPublicKeyFile
+  & C:\libressl\openssl req -subj "/C=US/ST=Washington/L=Redmond/O=./OU=." -new -x509 -days 365 -passin $Global:caPrivateKeyPass -key $Global:caPrivateKeyFile -sha256 -out $Global:caPublicKeyFile
 }
 
 # https://docs.docker.com/engine/security/https/
@@ -36,26 +36,26 @@ function createCerts($serverCertsPath, $serverName, $ipAddresses, $clientCertsPa
   $Global:caPrivateKeyPass = Get-Content -Path $Global:caPrivateKeyPassFile
 
   Write-Host "`n=== Generating Server private key"
-  & openssl genrsa -out server-key.pem 4096
+  & C:\libressl\openssl genrsa -out server-key.pem 4096
 
   Write-Host "`n=== Generating Server signing request"
-  & openssl req -subj "/CN=$serverName/" -sha256 -new -key server-key.pem -out server.csr
+  & C:\libressl\openssl req -subj "/CN=$serverName/" -sha256 -new -key server-key.pem -out server.csr
 
   Write-Host "`n=== Signing Server request"
   "subjectAltName = " + (($ipAddresses.Split(',') | ForEach-Object { "IP:$_" }) -join ',') + ",DNS.1:$serverName" | Out-File extfile.cnf -Encoding Ascii
   cat extfile.cnf
-  & openssl x509 -req -days 365 -sha256 -in server.csr -CA $Global:caPublicKeyFile -passin $Global:caPrivateKeyPass -CAkey $Global:caPrivateKeyFile `
+  & C:\libressl\openssl x509 -req -days 365 -sha256 -in server.csr -CA $Global:caPublicKeyFile -passin $Global:caPrivateKeyPass -CAkey $Global:caPrivateKeyFile `
     -CAcreateserial -out server-cert.pem -extfile extfile.cnf
 
   Write-Host "`n=== Generating Client key"
-  & openssl genrsa -out key.pem 4096
+  & C:\libressl\openssl genrsa -out key.pem 4096
 
   Write-Host "`n=== Generating Client signing request"
-  & openssl req -subj '/CN=client' -new -key key.pem -out client.csr
+  & C:\libressl\openssl req -subj '/CN=client' -new -key key.pem -out client.csr
 
   Write-Host "`n=== Signing Client signing request"
   "extendedKeyUsage = clientAuth" | Out-File extfile.cnf -Encoding Ascii
-  & openssl x509 -req -days 365 -sha256 -in client.csr -CA $Global:caPublicKeyFile -passin $Global:caPrivateKeyPass -CAkey $Global:caPrivateKeyFile `
+  & C:\libressl\openssl x509 -req -days 365 -sha256 -in client.csr -CA $Global:caPublicKeyFile -passin $Global:caPrivateKeyPass -CAkey $Global:caPrivateKeyFile `
     -CAcreateserial -out cert.pem -extfile extfile.cnf
 
   Write-Host "`n=== Copying Server certificates to $serverCertsPath"
