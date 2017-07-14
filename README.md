@@ -1,6 +1,6 @@
 # Windows Server 2016 Insider with Docker
 
-This is a special version of my [windows-docker-machine](https://github.com/StefanScherer/windows-docker-machine) repo for the Windows Server Insider Preview.
+This is a special version of my [windows-docker-machine](https://github.com/StefanScherer/windows-docker-machine) repo for the Windows Server Insider Preview. Get in touch with Windows Containers and the much smaller nanoserver-insider Docker image on your Mac, Linux or Windows machine.
 
 ![Docker Machine with Insider](images/insider_docker_machine.png)
 
