@@ -2,6 +2,8 @@
 
 This is a special version of my [windows-docker-machine](https://github.com/StefanScherer/windows-docker-machine) repo for the Windows Server Insider Preview.
 
+![Docker Machine with Insider](images/insider_docker_machine.png)
+
 It is tested on a Mac with the following steps.
 
 1. Register at Windows Insider program https://insider.windows.com
@@ -29,7 +31,7 @@ There is also some languages and runtimes available as insider images:
    * stefanscherer/node-windows:6.11.1-insider
    * stefanscherer/node-windows:8.1.4-insider
    * stefanscherer/golang-windows:1.8.3-insider
-         
+
 4. Boot the VM
 
 ```
