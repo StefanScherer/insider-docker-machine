@@ -43,8 +43,16 @@ vagrant up
 It will create TLS certs and create a Docker Machine entry "insider" so you can
 switch very easily between Docker 4 Mac/Win and this Insider VM.
 
-2. Switch to the Insider Docker machine
+5. Switch to the Insider Docker machine
 
 ```
 eval $(docker-machine env insider)
+docker version
+docker images
+```
+
+6. Switch back to Docker for Mac/Windows
+
+```
+eval $(docker-machine env -unset)
 ```
