@@ -4,7 +4,3 @@ if ((GWMI Win32_Processor).VirtualizationFirmwareEnabled[0] -and (GWMI Win32_Pro
 } else {
   Write-Host "Skipping installation of Hyper-V feature"
 }
-
-# https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/insider-known-issues
-Get-ComputeProcess | ? IsTemplate -eq $true | Stop-ComputeProcess -Force
-Set-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Virtualization\Containers\' -Name TemplateVmCount -Type dword -Value 0 -Force
