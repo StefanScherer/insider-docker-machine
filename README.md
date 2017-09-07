@@ -15,22 +15,21 @@ It is tested on a Mac with the following steps.
 ```bash
 git clone https://github.com/StefanScherer/packer-windows
 cd packer-windows
-packer build --only=vmware-iso --var iso_url=~/Downloads/Windows_InsiderPreview_Server_2_16237.iso windows_2016_insider.json
+packer build --only=vmware-iso --var iso_url=~/Downloads/Windows_InsiderPreview_Server_2_16278.iso windows_2016_insider.json
 vagrant box add windows_2016_insider windows_2016_insider_vmware.box
 ```
 
-This Vagrant basebox has Docker 17.06.0 CE installed and the following base images are already pulled from Docker Hub:
+This Vagrant box has Docker 17.09.0-ce-rc1 installed and the following base images are already pulled from Docker Hub:
 
   * microsoft/windowsservercore-insider
   * microsoft/nanoserver-insider
-  * microsoft/nanoserver-insider-powershell
 
 There is also some languages and runtimes available as insider images:
 
-   * microsoft/nanoserver-insider-dotnet
-   * stefanscherer/node-windows:6.11.1-insider
-   * stefanscherer/node-windows:8.1.4-insider
-   * stefanscherer/golang-windows:1.8.3-insider
+  * microsoft/nanoserver-insider-powershell (only 16267)
+  * microsoft/nanoserver-insider-dotnet (only 16267)
+  * stefanscherer/node-windows:8.4.0-insider
+  * stefanscherer/golang-windows:1.9-insider
 
 4. Boot the VM
 
