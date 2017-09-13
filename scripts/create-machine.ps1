@@ -1,10 +1,10 @@
-param ([String] $machineHome, [String] $machineName, [String] $machineIp)
+param ([String] $machineHome, [String] $machineName, [String] $machineIp, [String] $machineFqdn)
 
 if (!(Test-Path $env:USERPROFILE\.docker)) {
   mkdir $env:USERPROFILE\.docker
 }
 
-$ipAddresses = ((Get-NetIPAddress -AddressFamily IPv4).IPAddress) -Join ','
+$ipAddresses = ((Get-NetIPAddress -AddressFamily IPv4).IPAddress)
 
 if (!$machineIp) {
   $machineIp=(Get-NetIPAddress -AddressFamily IPv4 `
@@ -13,6 +13,8 @@ if (!$machineIp) {
       -And $_.IPAddress -Ne "127.0.0.1" `
       -And $_.IPAddress -Ne "10.0.2.15" `
     }).IPAddress
+} else {
+  $ipAddresses += $machineIp
 }
 
 $homeDir = $machineHome
@@ -56,7 +58,7 @@ function createCA($serverCertsPath) {
 }
 
 # https://docs.docker.com/engine/security/https/
-function createCerts($rootCert, $serverCertsPath, $serverName, $ipAddresses, $clientCertsPath) {
+function createCerts($rootCert, $serverCertsPath, $serverNames, $ipAddresses, $clientCertsPath) {
   Write-Host "`n=== Generating Server certificate"
   $parms = @{
     CertStoreLocation = "Cert:\CurrentUser\My";
@@ -65,7 +67,7 @@ function createCerts($rootCert, $serverCertsPath, $serverName, $ipAddresses, $cl
     Provider = "Microsoft Enhanced Cryptographic Provider v1.0";
     Type = "SSLServerAuthentication";
     HashAlgorithm = "sha256";
-    TextExtension = @("2.5.29.37= {text}1.3.6.1.5.5.7.3.1", "2.5.29.17={text}DNS=$serverName&DNS=localhost&IPAddress=$($ipAddresses.Split(',') -Join '&IPAddress=')");
+    TextExtension = @("2.5.29.37= {text}1.3.6.1.5.5.7.3.1", "2.5.29.17={text}DNS=$($serverNames -Join '&DNS=')&IPAddress=$($ipAddresses -Join '&IPAddress=')");
     KeyLength = 4096;
   }
   $serverCert = New-SelfSignedCertificate @parms
@@ -234,7 +236,12 @@ $serverCertsPath = "$dockerData\certs.d"
 $clientCertsPath = "$userPath"
 $rootCert = createCA "$dockerData\certs.d"
 
-createCerts $rootCert $serverCertsPath $serverName $ipAddresses $clientCertsPath
+$serverNames = @($serverName, 'localhost')
+if ($machineFqdn) {
+  $serverNames += $machineFqdn
+}
+
+createCerts $rootCert $serverCertsPath $serverNames $ipAddresses $clientCertsPath
 updateConfig "$dockerData\config\daemon.json" $serverCertsPath
 
 if ($machineName) {
