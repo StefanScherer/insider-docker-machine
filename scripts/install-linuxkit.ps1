@@ -7,3 +7,7 @@ Invoke-WebRequest -UseBasicParsing -OutFile $Env:Temp\linuxkit.zip https://githu
 
 Expand-Archive $Env:Temp\linuxkit.zip -DestinationPath "$Env:ProgramFiles\Linux Containers"
 rm $Env:Temp\linuxkit.zip
+
+[Environment]::SetEnvironmentVariable("LCOW_SUPPORTED", "1", "Machine")
+
+restart-service docker
