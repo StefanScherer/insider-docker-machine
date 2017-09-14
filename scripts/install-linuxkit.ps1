@@ -10,4 +10,4 @@ rm $Env:Temp\linuxkit.zip
 
 [Environment]::SetEnvironmentVariable("LCOW_SUPPORTED", "1", "Machine")
 
-restart-service docker
+Write-Host "Now restart the Docker engine to run LCOW"

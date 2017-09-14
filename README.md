@@ -19,7 +19,7 @@ packer build --only=vmware-iso --var iso_url=~/Downloads/Windows_InsiderPreview_
 vagrant box add windows_2016_insider windows_2016_insider_vmware.box
 ```
 
-This Vagrant box has Docker 17.09.0-ce-rc1 installed and the following base images are already pulled from Docker Hub:
+This Vagrant box has Docker 17.09.0-ce-rc2 installed and the following base images are already pulled from Docker Hub:
 
   * microsoft/windowsservercore-insider
   * microsoft/nanoserver-insider
@@ -55,3 +55,16 @@ docker images
 ```
 eval $(docker-machine env -unset)
 ```
+
+## LCOW - Linux Container on Windows
+
+With this Windows Insider and the nightly version of the Docker engine for Windows you also can get in touch with the preview of LCOW. Running Linux containers on Windows
+
+To have LCOW activated, prepare the `Vagrantfile` with these two provision scripts.
+
+```
+  config.vm.provision "shell", path: "scripts/update-nightly-docker.ps1"
+  config.vm.provision "shell", path: "scripts/install-linuxkit.ps1"
+```
+
+Now run `vagrant up` and you are able to try out the first preview of LCOW.
