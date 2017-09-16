@@ -68,3 +68,13 @@ To have LCOW activated, prepare the `Vagrantfile` with these two provision scrip
 ```
 
 Now run `vagrant up` and you are able to try out the first preview of LCOW.
+
+```
+$ docker run alpine uname -a
+Unable to find image 'alpine:latest' locally
+latest: Pulling from library/alpine
+88286f41530e: Pull complete
+Digest: sha256:f006ecbb824d87947d0b51ab8488634bf69fe4094959d935c0c103f4820a417d
+Status: Downloaded newer image for alpine:latest
+Linux 9e55395dc078 4.11.0-1010-azure #10~lcow3-Ubuntu SMP Mon Sep 11 16:36:39 UTC 2017 x86_64 Linux
+```
