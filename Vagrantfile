@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", path: "scripts/create-machine.ps1", args: "-machineHome #{ENV['HOME']} -machineName insider"
   # Activate the next two lines to test LCOW
   # config.vm.provision "shell", path: "scripts/update-nightly-docker.ps1"
-  # config.vm.provision "shell", path: "scripts/install-linuxkit.ps1"
+  # config.vm.provision "shell", path: "scripts/install-xenial-container.ps1"
   config.vm.provision "shell", path: "scripts/install-hyperv.ps1"
   config.vm.provision "reload"
 

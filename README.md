@@ -64,7 +64,7 @@ To have LCOW activated, prepare the `Vagrantfile` with these two provision scrip
 
 ```
   config.vm.provision "shell", path: "scripts/update-nightly-docker.ps1"
-  config.vm.provision "shell", path: "scripts/install-linuxkit.ps1"
+  config.vm.provision "shell", path: "scripts/install-xenial-container.ps1"
 ```
 
 Now run `vagrant up` and you are able to try out the first preview of LCOW.
