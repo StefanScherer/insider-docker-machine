@@ -62,6 +62,8 @@ With this Windows Insider and the nightly version of the Docker engine for Windo
 
 To have LCOW activated, prepare the `Vagrantfile` with these two provision scripts.
 
+**Make sure to increase the memory of the VM to have more than 4 GByte RAM.**
+
 ```
   config.vm.provision "shell", path: "scripts/update-nightly-docker.ps1"
   config.vm.provision "shell", path: "scripts/install-xenial-container.ps1"
