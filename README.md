@@ -1,5 +1,7 @@
 # Windows Server 2016 Insider with Docker
 
+**Deprecation Notice: Please use the [windows-docker-machine](https://github.com/StefanScherer/windows-docker-machine) repo and with `vagrant up insider`. This repo is no longer maintained.**
+
 This is a special version of my [windows-docker-machine](https://github.com/StefanScherer/windows-docker-machine) repo for the Windows Server Insider Preview. Get in touch with Windows Containers and the much smaller nanoserver-insider Docker image on your Mac, Linux or Windows machine. Create a local VM that runs in parallel to Docker for Mac/Win.
 
 ![Docker Machine with Insider](images/insider_docker_machine.png)
